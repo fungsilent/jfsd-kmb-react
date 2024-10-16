@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/jsfd-kmb-react/static/css/main.d7ee6a61.css",
+    "main.js": "/jsfd-kmb-react/static/js/main.c34caea7.js",
+    "index.html": "/jsfd-kmb-react/index.html",
+    "main.d7ee6a61.css.map": "/jsfd-kmb-react/static/css/main.d7ee6a61.css.map",
+    "main.c34caea7.js.map": "/jsfd-kmb-react/static/js/main.c34caea7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d7ee6a61.css",
+    "static/js/main.c34caea7.js"
+  ]
+}
