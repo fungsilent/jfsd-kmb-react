@@ -21,6 +21,7 @@ export const fetchRouteStop = async ({ route, bound, serviceType }) => {
         const stopData = await fetchStopData({
             stopId: info.stop,
             route,
+            bound,
             serviceType,
         })
 
@@ -35,18 +36,15 @@ export const fetchRouteStop = async ({ route, bound, serviceType }) => {
     return result
 }
 
-const fetchStopData = async ({ stopId, route, serviceType }) => {
-    const result = await Promise.all([
+const fetchStopData = async ({ stopId, route, bound, serviceType }) => {
+    const [stopName, stopETA] = await Promise.all([
         fetchData(`stop/${stopId}`),
         fetchData(`eta/${stopId}/${route}/${serviceType}`),
     ])
 
-    const isSuccess = result.every(item => !!item)
-    if (!isSuccess) return null
-
     return {
-        ...result[0],
-        bus: result[1].slice(0, 3), // get first 3 items
+        ...stopName,
+        bus: stopETA.filter(item => item.dir === bound).slice(0, 3), // get first 3 items
     }
 }
 

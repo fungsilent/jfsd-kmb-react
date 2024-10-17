@@ -25,12 +25,11 @@ const App = () => {
     /* render */
     if (!routeList.length) return <Loading />
     return (
-        <section className='container flex flex-col gap-4'>
+        <section className='container flex flex-col gap-6 max-w-5xl m-auto'>
             <Search
                 routeList={routeList}
                 selectRoute={selectRoute}
             />
-            <hr className='border border-b-red-900' />
             <RouteStop info={routeInfo} />
         </section>
     )

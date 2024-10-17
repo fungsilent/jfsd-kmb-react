@@ -4,6 +4,7 @@ import { fetchRouteStop } from '../data'
 
 const RouteStop = ({ info }) => {
     const [stops, setStops] = useState([])
+
     const { route, bound, orig_tc, dest_tc, service_type } = info
 
     useEffect(() => {
@@ -19,17 +20,18 @@ const RouteStop = ({ info }) => {
     }, [route, bound, service_type])
 
     return (
-        <div className='route-stop flex flex-col gap-4'>
-            <p className='flex flex-row gap-2'>
+        <div className='route-stop flex flex-col gap-3'>
+            <p className='flex flex-row gap-3'>
                 {!!route && (
                     <>
-                        <span>巴士線:</span>
-                        <span>{route}</span> <span>{orig_tc}</span>➤
+                        <span className='font-bold mr-2'>巴士路線:</span>
+                        <span>{route}</span> <span>{orig_tc}</span>
+                        <span className='text-red-600'>➤</span>
                         <span>{dest_tc}</span>
                     </>
                 )}
             </p>
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-2 bg-white p-2 rounded border border-gray-200 drop-shadow-2xl'>
                 {stops.map(stopInfo => (
                     <BusStop
                         key={stopInfo.stop}
@@ -42,24 +44,26 @@ const RouteStop = ({ info }) => {
 }
 
 const BusStop = ({ info }) => {
-    console.log('BusStop', info)
+    // console.log('BusStop', info)
     const { seq, name_tc, bus } = info
     return (
-        <div className='flex flex-row border border-red-800'>
-            <p className='w-[300px]'>
+        <div className='flex flex-row border-b border-b-rose-800'>
+            <p className=''>
                 <span>{seq}.</span>
                 <span>{name_tc}</span>
-                <span>{}</span>
             </p>
             <ul>
-                {bus.map(({ eta, rmk_tc }) => (
-                    <li>
-                        <span data-eta={eta}>
-                            {moment(eta).format('HH:mm')}
-                        </span>
-                        <span>{rmk_tc}</span>
-                    </li>
-                ))}
+                {bus.map(({ eta, rmk_tc }, index) => {
+                    const time = moment(eta)
+                    return (
+                        <li key={index}>
+                            <span data-eta={eta}>
+                                {time.isValid() && time.format('HH:mm')}
+                            </span>
+                            <span>{rmk_tc}</span>
+                        </li>
+                    )
+                })}
             </ul>
         </div>
     )
