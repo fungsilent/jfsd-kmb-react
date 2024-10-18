@@ -44,14 +44,14 @@ const SearchSelect = ({ routeList, text, selectRoute }) => {
                     className='w-full flex flex-row gap-4 rounded border border-rose-100 bg-rose-50 px-2 py-1 drop-shadow-sm'
                     onClick={() => selectRoute(item)}
                 >
-                    <span className='w-[30px] text-left font-bold text-red-800'>
+                    <span className='w-[40px] text-left font-bold text-red-800'>
                         {item.route}
                     </span>
-                    <span className='w-[160px] text-left text-gray-500'>
+                    <span className='w-[160px] grow text-left text-gray-500'>
                         {item.orig_tc}
                     </span>
-                    <span className='grow text-rose-500'>▶</span>
-                    <span className='w-[160px] text-right text-gray-500'>
+                    <span className='text-rose-500'>▶</span>
+                    <span className='w-[160px] grow text-right text-gray-500'>
                         {item.dest_tc}
                     </span>
                 </button>
