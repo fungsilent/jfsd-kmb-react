@@ -5,17 +5,14 @@ const Search = ({ routeList, selectRoute }) => {
 
     const onText = event => {
         let text = event.target.value
-        text = text
-            .toUpperCase()
-            .match(/[A-Z0-9]+/g)
-            ?.join('')
-        setText(text ?? '')
+        text = text.toUpperCase().replace(/[^A-Z0-9]/g)
+        setText(text)
     }
 
     return (
         <div className='search flex flex-col gap-3'>
             <input
-                className='bg-white border-2 border-l-4 rounded border-zinc-300 focus-visible:border-red-800 py-1 px-2'
+                className='bg-white border-2 border-l-4 outline-none rounded border-zinc-300 focus-visible:border-red-800 py-1 px-2'
                 type='text'
                 max={4}
                 value={text}
@@ -41,17 +38,19 @@ const SearchSelect = ({ routeList, text, selectRoute }) => {
             {items.map((item, index) => (
                 <button
                     key={index}
-                    className='w-full flex flex-row gap-4 rounded border border-rose-100 bg-rose-50 px-2 py-1 drop-shadow-sm'
+                    className='w-full grid grid-cols-[40px_1fr_auto_1fr] gap-4 rounded border border-rose-100 bg-rose-50 px-2 py-1 drop-shadow-sm hover:bg-rose-100'
                     onClick={() => selectRoute(item)}
                 >
-                    <span className='w-[40px] text-left font-bold text-red-800'>
+                    <span className='text-left font-bold text-red-800'>
                         {item.route}
                     </span>
-                    <span className='w-[160px] grow text-left text-gray-500'>
+                    <span className='text-left text-gray-500'>
+                        <span className='text-xs mr-1'>由</span>
                         {item.orig_tc}
                     </span>
                     <span className='text-rose-500'>▶</span>
-                    <span className='w-[160px] grow text-right text-gray-500'>
+                    <span className='text-right text-gray-500'>
+                        <span className='text-xs mr-1'>往</span>
                         {item.dest_tc}
                     </span>
                 </button>

@@ -26,6 +26,10 @@ const App = () => {
     if (!routeList.length) return <Loading />
     return (
         <section className='container flex flex-col gap-6 max-w-4xl m-auto'>
+            <img
+                className='w-[200px] self-center'
+                src='https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/KowloonMotorBus.svg/768px-KowloonMotorBus.svg.png?20190429174651'
+            />
             <Search
                 routeList={routeList}
                 selectRoute={selectRoute}

@@ -36,9 +36,15 @@ const RouteStop = ({ info }) => {
                             巴士路線:
                         </span>
                         <span className='font-bold text-red-800'>{route}</span>
-                        <span className='text-gray-500'>{orig_tc}</span>
+                        <span className='text-gray-500'>
+                            <span className='text-xs mr-1'>由</span>
+                            {orig_tc}
+                        </span>
                         <span className='text-rose-500'>▶</span>
-                        <span className='text-gray-500'>{dest_tc}</span>
+                        <span className='text-gray-500'>
+                            <span className='text-xs mr-1'>往</span>
+                            {dest_tc}
+                        </span>
                     </>
                 )}
                 <span className='flex-1 flex justify-end'>
@@ -73,12 +79,12 @@ const BusStop = ({ info }) => {
     }
 
     return (
-        <div className='flex flex-row justify-between gap-6 border-b-2 border-b-rose-500'>
-            <span className='bg-rose-600 text-stone-100 w-[36px] text-center'>
+        <div className='grid grid-cols-[36px_1fr_1fr] max-sm:grid-rows-1 justify-between gap-y-1 gap-x-6 border-b-2 border-b-rose-500'>
+            <span className=' bg-rose-600 text-stone-100 text-center max-sm:row-span-2'>
                 {seq}.
             </span>
-            <span className='grow'>{name_tc}</span>
-            <ul className='flex flex-col items-end mb-2'>
+            <span className='max-sm:col-span-2'>{name_tc}</span>
+            <ul className='flex flex-col items-end mb-2 max-sm:col-span-2'>
                 {bus.map(({ eta, rmk_tc }, index) => {
                     const time = moment(eta)
                     return (
