@@ -29,13 +29,16 @@ const RouteStop = ({ info }) => {
 
     return (
         <div className='flex flex-col gap-3'>
-            <p className='flex flex-row gap-3'>
+            <p className='flex flex-row gap-3 max-sm:flex-wrap'>
                 {!!route && (
                     <>
-                        <span className='font-bold mr-2'>巴士路線:</span>
-                        <span>{route}</span> <span>{orig_tc}</span>
-                        <span className='text-red-600'>➤</span>
-                        <span>{dest_tc}</span>
+                        <span className='font-bold mr-2 max-sm:w-full'>
+                            巴士路線:
+                        </span>
+                        <span className='font-bold text-red-800'>{route}</span>
+                        <span className='text-gray-500'>{orig_tc}</span>
+                        <span className='text-rose-500'>▶</span>
+                        <span className='text-gray-500'>{dest_tc}</span>
                     </>
                 )}
                 <span className='flex-1 flex justify-end'>
@@ -71,27 +74,29 @@ const BusStop = ({ info }) => {
 
     return (
         <div className='flex flex-row justify-between gap-6 border-b-2 border-b-rose-500'>
-            <span className='bg-rose-500 text-stone-100 w-[36px] text-center'>
+            <span className='bg-rose-600 text-stone-100 w-[36px] text-center'>
                 {seq}.
             </span>
             <span className='grow'>{name_tc}</span>
             <ul className='flex flex-col items-end mb-2'>
                 {bus.map(({ eta, rmk_tc }, index) => {
-                    if (!eta && !rmk_tc) {
-                        return renderRemark('未能提供服務')
-                    }
-
                     const time = moment(eta)
                     return (
                         <li
                             key={index}
                             className='flex flex-row items-center gap-12 py-1'
                         >
-                            {!!rmk_tc && renderRemark(rmk_tc)}
-                            {time.isValid() && (
-                                <span data-eta={eta}>
-                                    {time.format('HH:mm')}
-                                </span>
+                            {!eta && !rmk_tc ? (
+                                renderRemark('未能提供服務')
+                            ) : (
+                                <>
+                                    {!!rmk_tc && renderRemark(rmk_tc)}
+                                    {time.isValid() && (
+                                        <span data-eta={eta}>
+                                            {time.format('HH:mm')}
+                                        </span>
+                                    )}
+                                </>
                             )}
                         </li>
                     )
