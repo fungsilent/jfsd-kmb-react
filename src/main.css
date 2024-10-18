@@ -10,13 +10,33 @@ body {
     @apply bg-stone-50 p-4
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    @apply border-2 bg-stone-200
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    @apply rounded-sm bg-stone-300
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    /* @apply bg-rose-700 */
+}
+
 .loading {
     padding: 30px 0;
     font-size: 30px;
     font-weight: bold;
-    animation: loading 2s infinite linear;
+    animation: spin 2s infinite linear;
 }
-@keyframes loading {
+.spin {
+    animation: spin 1s infinite linear;
+}
+@keyframes spin {
     0% {
         transform: rotate(0);
     }

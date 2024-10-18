@@ -63,3 +63,8 @@ export async function fetchData(endpoint) {
         return null
     }
 }
+
+// for debug use
+export const delay = async time => {
+    return new Promise(resovle => setTimeout(() => resovle(), time))
+}

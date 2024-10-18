@@ -25,12 +25,12 @@ const App = () => {
     /* render */
     if (!routeList.length) return <Loading />
     return (
-        <section className='container flex flex-col gap-6 max-w-5xl m-auto'>
+        <section className='container flex flex-col gap-6 max-w-4xl m-auto'>
             <Search
                 routeList={routeList}
                 selectRoute={selectRoute}
             />
-            <RouteStop info={routeInfo} />
+            {!!routeInfo.route && <RouteStop info={routeInfo} />}
         </section>
     )
 }

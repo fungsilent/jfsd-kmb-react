@@ -15,7 +15,7 @@ const Search = ({ routeList, selectRoute }) => {
     return (
         <div className='search flex flex-col gap-3'>
             <input
-                className='border-2 border-red-400 rounded focus:border-red-800 py-1 px-2'
+                className='bg-white border-2 border-l-4 rounded border-zinc-300 focus-visible:border-red-800 py-1 px-2'
                 type='text'
                 max={4}
                 value={text}
@@ -37,17 +37,17 @@ const SearchSelect = ({ routeList, text, selectRoute }) => {
     const items = routeList.filter(item => item.route.startsWith(text))
 
     return (
-        <div className='search-select flex flex-col gap-1 border border-stone-200 rounded shadow-sm max-h-[200px] overflow-y-scroll'>
+        <div className='flex flex-col gap-1 rounded shadow-sm max-h-[200px] overflow-y-scroll'>
             {items.map((item, index) => (
                 <button
                     key={index}
-                    className='search-item w-full flex flex-row gap-4 bg-rose-100 px-2 py-1'
+                    className='w-full flex flex-row gap-4 rounded border border-rose-100 bg-rose-50 px-2 py-1 drop-shadow-sm'
                     onClick={() => selectRoute(item)}
                 >
                     <span className='w-[30px] text-left'>{item.route}</span>
                     <span className='w-[160px] text-left'>{item.orig_tc}</span>
-                    <span className='text-red-600'>➤</span>
-                    <span>{item.dest_tc}</span>
+                    <span className='grow text-red-600'>➤</span>
+                    <span className='w-[160px]'>{item.dest_tc}</span>
                 </button>
             ))}
         </div>
