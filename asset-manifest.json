@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/jsfd-kmb-react/static/css/main.1689f43e.css",
-    "main.js": "/jsfd-kmb-react/static/js/main.3c08475f.js",
-    "static/media/refresh.svg": "/jsfd-kmb-react/static/media/refresh.db200892155ca7319836d43faf47c412.svg",
+    "main.css": "/jsfd-kmb-react/static/css/main.51c39e9d.css",
+    "main.js": "/jsfd-kmb-react/static/js/main.2274fc96.js",
+    "static/media/refresh.svg": "/jsfd-kmb-react/static/media/refresh.bf310b66f540b745368200fb8dd9dde3.svg",
     "index.html": "/jsfd-kmb-react/index.html",
-    "main.1689f43e.css.map": "/jsfd-kmb-react/static/css/main.1689f43e.css.map",
-    "main.3c08475f.js.map": "/jsfd-kmb-react/static/js/main.3c08475f.js.map"
+    "main.51c39e9d.css.map": "/jsfd-kmb-react/static/css/main.51c39e9d.css.map",
+    "main.2274fc96.js.map": "/jsfd-kmb-react/static/js/main.2274fc96.js.map"
   },
   "entrypoints": [
-    "static/css/main.1689f43e.css",
-    "static/js/main.3c08475f.js"
+    "static/css/main.51c39e9d.css",
+    "static/js/main.2274fc96.js"
   ]
 }
