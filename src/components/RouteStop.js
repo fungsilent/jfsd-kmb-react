@@ -1,27 +1,31 @@
 import { useState, useEffect } from 'react'
 import moment from 'moment'
+import { useProcess } from './Process'
 import Refresh from './Refresh'
 import { fetchRouteStop } from '../data'
 
 const RouteStop = ({ info }) => {
     const [stops, setStops] = useState([])
     const [isRefresh, doRefresh] = useState(false)
-    const [isLoading, setLoading] = useState(false)
+    const [process, setProcess, Process] = useProcess()
     const { route, bound, orig_tc, dest_tc, service_type } = info
 
     useEffect(() => {
         const getData = async () => {
-            setLoading(true)
-            const data = await fetchRouteStop({
-                route,
-                bound,
-                serviceType: service_type,
-            })
-            setLoading(false)
+            setProcess(10)
+            const data = await fetchRouteStop(
+                {
+                    route,
+                    bound,
+                    serviceType: service_type,
+                },
+                setProcess
+            )
+            setProcess(100)
             setStops(data)
         }
         if (route) getData()
-    }, [route, bound, service_type, isRefresh])
+    }, [info, isRefresh])
 
     const onRefresh = () => {
         doRefresh(prev => !prev)
@@ -48,16 +52,14 @@ const RouteStop = ({ info }) => {
                     </>
                 )}
                 <span className='flex-1 flex justify-end'>
-                    <Refresh
-                        isSpin={isLoading}
-                        onClick={onRefresh}
-                    />
+                    <Refresh onClick={onRefresh} />
                 </span>
             </p>
-            <div className='flex flex-col gap-2 bg-white p-2 rounded border border-gray-200 drop-shadow-2xl'>
-                {stops.map(stopInfo => (
+            <div className='flex flex-col gap-2 bg-white p-2 rounded border border-gray-200 drop-shadow-2xl relative overflow-hidden'>
+                <Process />
+                {stops.map((stopInfo, index) => (
                     <BusStop
-                        key={stopInfo.stop}
+                        key={index}
                         info={stopInfo}
                     />
                 ))}

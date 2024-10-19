@@ -7,7 +7,10 @@
     font-style: normal;
 }
 body {
-    @apply bg-stone-50 p-4
+    @apply relative bg-stone-50;
+}
+#root {
+    @apply p-4;
 }
 
 /* width */
@@ -16,23 +19,17 @@ body {
 }
 /* Track */
 ::-webkit-scrollbar-track {
-    @apply border-2 bg-stone-200
+    @apply border-2 bg-stone-200;
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    @apply rounded-sm bg-stone-300
+    @apply rounded-sm bg-stone-300;
 }
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     /* @apply bg-rose-700 */
 }
 
-.loading {
-    padding: 30px 0;
-    font-size: 30px;
-    font-weight: bold;
-    animation: spin 2s infinite linear;
-}
 .spin {
     animation: spin 1s infinite linear;
 }

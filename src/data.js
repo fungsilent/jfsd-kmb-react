@@ -10,14 +10,18 @@ export const fetchRouteList = async () => {
     return data ?? []
 }
 
-export const fetchRouteStop = async ({ route, bound, serviceType }) => {
+export const fetchRouteStop = async (
+    { route, bound, serviceType },
+    setProcess
+) => {
     let result = []
     const data = await fetchData(
         `route-stop/${route}/${boundMap[bound]}/${serviceType}`
     )
+    setProcess(40)
 
     if (!data) return result
-    const tasks = await data.map(async info => {
+    const tasks = data.map(async info => {
         const stopData = await fetchStopData({
             stopId: info.stop,
             route,
@@ -25,21 +29,20 @@ export const fetchRouteStop = async ({ route, bound, serviceType }) => {
             serviceType,
         })
 
-        if (stopData) {
-            return {
-                ...info,
-                ...stopData,
-            }
+        return {
+            ...info,
+            ...stopData,
         }
     })
+    setProcess(70)
     result = await Promise.all(tasks)
     return result
 }
 
 const fetchStopData = async ({ stopId, route, bound, serviceType }) => {
     const [stopName, stopETA] = await Promise.all([
-        fetchData(`stop/${stopId}`),
-        fetchData(`eta/${stopId}/${route}/${serviceType}`),
+        fetchData(`stop/${stopId}`) ?? {},
+        fetchData(`eta/${stopId}/${route}/${serviceType}`) ?? [],
     ])
 
     return {
@@ -56,6 +59,7 @@ export async function fetchData(endpoint) {
         if (response.code) {
             throw new Error(`[${response.code}]: ${response.message}`)
         }
+        // await delay(1000)
 
         return response.data
     } catch (err) {
@@ -64,7 +68,6 @@ export async function fetchData(endpoint) {
     }
 }
 
-// for debug use
 export const delay = async time => {
     return new Promise(resovle => setTimeout(() => resovle(), time))
 }

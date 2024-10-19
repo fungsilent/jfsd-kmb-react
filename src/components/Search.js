@@ -5,7 +5,7 @@ const Search = ({ routeList, selectRoute }) => {
 
     const onText = event => {
         let text = event.target.value
-        text = text.toUpperCase().replace(/[^A-Z0-9]/g)
+        text = text.toUpperCase().replace(/[^A-Z0-9]/, '')
         setText(text)
     }
 
