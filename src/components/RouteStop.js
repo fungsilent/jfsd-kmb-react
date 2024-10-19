@@ -1,27 +1,25 @@
 import { useState, useEffect } from 'react'
 import moment from 'moment'
-import { useProcess } from './Process'
+import LoadingBar from 'react-top-loading-bar'
 import Refresh from './Refresh'
 import { fetchRouteStop } from '../data'
 
 const RouteStop = ({ info }) => {
     const [stops, setStops] = useState([])
     const [isRefresh, doRefresh] = useState(false)
-    const [process, setProcess, Process] = useProcess()
+    const [progress, setProgress] = useState()
     const { route, bound, orig_tc, dest_tc, service_type } = info
 
     useEffect(() => {
         const getData = async () => {
-            setProcess(10)
             const data = await fetchRouteStop(
                 {
                     route,
                     bound,
                     serviceType: service_type,
                 },
-                setProcess
+                setProgress
             )
-            setProcess(100)
             setStops(data)
         }
         if (route) getData()
@@ -55,8 +53,17 @@ const RouteStop = ({ info }) => {
                     <Refresh onClick={onRefresh} />
                 </span>
             </p>
-            <div className='flex flex-col gap-2 bg-white p-2 rounded border border-gray-200 drop-shadow-2xl relative overflow-hidden'>
-                <Process />
+            <div className='flex flex-col gap-2 bg-white px-2 py-3 min-h-10 rounded border border-gray-200 drop-shadow-2xl relative overflow-hidden'>
+                <LoadingBar
+                    color='#ef4444'
+                    progress={progress}
+                    onLoaderFinished={() => setProgress(0)}
+                    transitionTime={200}
+                    waitingTime={500}
+                    containerStyle={{
+                        position: 'absolute',
+                    }}
+                />
                 {stops.map((stopInfo, index) => (
                     <BusStop
                         key={index}
@@ -69,7 +76,7 @@ const RouteStop = ({ info }) => {
 }
 
 const BusStop = ({ info }) => {
-    // console.log('BusStop', info)
+    console.log('BusStop', info)
     const { seq, name_tc, bus } = info
 
     const renderRemark = remark => {

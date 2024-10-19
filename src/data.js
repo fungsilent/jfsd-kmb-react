@@ -5,21 +5,25 @@ const boundMap = {
     O: 'outbound',
 }
 
-export const fetchRouteList = async () => {
+export const fetchRouteList = async setProgress => {
+    setProgress(50)
     const data = await fetchData('route')
+    setProgress(100)
     return data ?? []
 }
 
 export const fetchRouteStop = async (
     { route, bound, serviceType },
-    setProcess
+    setProgress
 ) => {
+    setProgress(10)
     let result = []
     const data = await fetchData(
         `route-stop/${route}/${boundMap[bound]}/${serviceType}`
     )
-    setProcess(40)
+    setProgress(30)
 
+    let progress = 30
     if (!data) return result
     const tasks = data.map(async info => {
         const stopData = await fetchStopData({
@@ -28,14 +32,16 @@ export const fetchRouteStop = async (
             bound,
             serviceType,
         })
+        progress += 60 / data.length
+        setProgress(progress)
 
         return {
             ...info,
             ...stopData,
         }
     })
-    setProcess(70)
     result = await Promise.all(tasks)
+    setProgress(100)
     return result
 }
 
@@ -59,7 +65,6 @@ export async function fetchData(endpoint) {
         if (response.code) {
             throw new Error(`[${response.code}]: ${response.message}`)
         }
-        // await delay(1000)
 
         return response.data
     } catch (err) {
@@ -68,6 +73,7 @@ export async function fetchData(endpoint) {
     }
 }
 
+// for debug use
 export const delay = async time => {
     return new Promise(resovle => setTimeout(() => resovle(), time))
 }
